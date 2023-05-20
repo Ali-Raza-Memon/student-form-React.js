@@ -5,7 +5,20 @@ import '../App.css';
 const Form = () => {
 
     const [name,setName]= useState('')
-    const [address,setAddress] = useState(''  )
+    const [address,setAddress] = useState('')
+
+    const handleClick=(e)=>{
+        e.preventDefault();
+        const student =[name,address];
+        console.log(student);
+        fetch("http://localhost:8080/student/add",{
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            body:JSON.stringify(student)
+        }).then(()=>{
+            console.log("New Student added")
+        })
+    }
 
     return (
 
@@ -43,7 +56,7 @@ const Form = () => {
                 </div>
 
                 <div className="mt-2">
-                <button type="submit" className="btn btn-success btn-sm">
+                <button type="submit" className="btn btn-success btn-sm" onClick={handleClick}>
                     Save
                 </button>
                 <button type="reset" className="btn btn-danger btn-sm m-2">Cancel</button>
